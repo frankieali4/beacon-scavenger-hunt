@@ -1,0 +1,21 @@
+<ion-navbar *navbar>
+  <ion-title>
+    SGS Scavenger Hunt
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="home" padding>
+  
+  <h1>Beacons Within Range</h1>
+  <p id="message">Preparing...</p>
+
+  <ion-card class="beacon-card" *ngFor="let beacon of foundBeacons">
+  	<div class="beacon-distance beacon{{beacon.distance}}"></div>
+  	<ion-card-header>{{beacon.name}}</ion-card-header>
+  	<ion-card-content>URL: {{beacon.url}}</ion-card-content>
+  	<ion-card-content>DISTANCE: {{beacon.distance}}</ion-card-content>
+  </ion-card>
+
+
+   <div id="found-beacons"></div>
+</ion-content>
