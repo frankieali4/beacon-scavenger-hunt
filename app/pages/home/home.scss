@@ -1,7 +1,6 @@
 .home {
 	.beacon-card{
 		position:relative;
-		background: none;
 	}
 	.beacon-distance{
 		width:100%;
@@ -26,5 +25,19 @@
 	  &.beacon5{
 	  	background-color:#ff0000;
 	  }
+  }
+
+  .clue-img{
+  	border:5px solid #ccc;
+  }
+
+  ion-card{
+  	ion-card-header{
+  		font-size:1.8em;
+  		text-transform: uppercase;
+  		background: url('/img/mglass.jpg') no-repeat 16px 12px;
+  		background-size:contain;
+  		padding:26px 32px;
+  	}
   }
 }

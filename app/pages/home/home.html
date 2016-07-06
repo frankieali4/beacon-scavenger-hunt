@@ -1,12 +1,11 @@
 <ion-navbar *navbar>
   <ion-title>
-    SGS Scavenger Hunt
+    SGS Employee Scavenger Hunt
   </ion-title>
 </ion-navbar>
 
 <ion-content class="home" padding>
-  
-  <h1>Beacons Within Range</h1>
+  <h1>Clues Within Range</h1>
   <p id="message">Preparing...</p>
 
   <ion-card class="beacon-card" *ngFor="let beacon of foundBeacons">
@@ -16,6 +15,34 @@
   	<ion-card-content>DISTANCE: {{beacon.distance}}</ion-card-content>
   </ion-card>
 
+  <!-- <ion-card class="beacon-card" >
+    <ion-card-header>Clue 01</ion-card-header>
+    <ion-card-content><h2>This woman has been at SGS for over 10 years. Her favorite living thing is named Bruno and if you don't use the right PID she will cut a b!</h2>
+      <ion-item>
+      <ion-label>Answer to Clue #1</ion-label>
+      <ion-input [(ngModel)]="answer01" type="text"></ion-input>
+    </ion-item>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card class="beacon-card">
+    <ion-card-header>#1</ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col><img class="clue-img" src="/img/deltek.jpg"></ion-col>
+          <ion-col><img class="clue-img" src="/img/bruno.jpg"></ion-col>
+          <ion-col><img class="clue-img" src="/img/glasses.jpg"></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Answer to Clue #1</ion-label>
+        <ion-input [(ngModel)]="answer01" type="text"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
    <div id="found-beacons"></div>
 </ion-content>
