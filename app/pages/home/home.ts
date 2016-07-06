@@ -11,6 +11,7 @@ export class HomePage {
 	beacons:Object = {};
 	timer:any = null;
 	public foundBeacons = [];
+    public hasSLBeacon:Boolean = false;
 
   	constructor(private navController: NavController, platform: Platform) {
 		platform.ready().then(() => {
@@ -61,6 +62,7 @@ export class HomePage {
     displayBeacons(){
         var html = '';
         this.foundBeacons = [];
+        this.hasSLBeacon = false;
         for (var key in this.beacons){
             let beacon = this.beacons[key];
             let beaconObj = {
@@ -76,7 +78,9 @@ export class HomePage {
             //     + '</p>';
             // html += htmlBeacon
             this.foundBeacons.push(beaconObj);
+            if(beaconObj.url == 'http://sarahlamont.com') this.hasSLBeacon = true;
         }
+
         //document.querySelector('#found-beacons').innerHTML = html;
     }
 

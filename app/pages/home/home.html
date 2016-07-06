@@ -15,17 +15,7 @@
   	<ion-card-content>DISTANCE: {{beacon.distance}}</ion-card-content>
   </ion-card>
 
-  <!-- <ion-card class="beacon-card" >
-    <ion-card-header>Clue 01</ion-card-header>
-    <ion-card-content><h2>This woman has been at SGS for over 10 years. Her favorite living thing is named Bruno and if you don't use the right PID she will cut a b!</h2>
-      <ion-item>
-      <ion-label>Answer to Clue #1</ion-label>
-      <ion-input [(ngModel)]="answer01" type="text"></ion-input>
-    </ion-item>
-    </ion-card-content>
-  </ion-card> -->
-
-  <ion-card class="beacon-card">
+  <ion-card class="beacon-card" *ngIf="hasSLBeacon">
     <ion-card-header>#1</ion-card-header>
     <ion-card-content>
       <ion-grid>
