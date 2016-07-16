@@ -1,0 +1,20 @@
+__ng_jsonp__.__req0.finished([
+  {
+    "setting": {
+
+    },
+    "beacons": [
+      {
+        "id": "1",
+        "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
+        "beaconMajor": "0",
+        "beaconMinor": "1"
+      },
+      {
+        "id": "2",
+        "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
+        "beaconMajor": "0",
+        "beaconMinor": "2"
+      }
+    ]
+  }])

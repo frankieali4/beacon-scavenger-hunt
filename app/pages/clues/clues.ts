@@ -1,21 +1,45 @@
 import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
+import {CluesService} from './cluesService';
 
 declare var evothings:any;
 
 @Component({
-  templateUrl: 'build/pages/clues/clues.html'
+    templateUrl: 'build/pages/clues/clues.html',
+    providers: [CluesService]
 })
 export class CluesPage {
+
+  //class variables
   beacons:Object = {};
   timer:any = null;
   public foundBeacons = [];
   public hasSLBeacon:Boolean = false;
-  constructor(private navController: NavController, platform: Platform) {
+  clues: Array<any>;
+
+  constructor(
+      private navController: NavController,
+      private cluesService: CluesService,
+      platform: Platform
+  ) {
     platform.ready().then(() => {
       this.startScanning();
     });
 
+  }
+
+  getData(){
+    //return this.cluesService.getClues();
+    return this.cluesService.getClues().subscribe(
+        data => {
+          this.clues = data.results;
+          console.log(data);
+        },
+        err => {
+          console.log(err);
+        },
+        () => console.log('Clues Data Complete')
+    );
   }
 
   showMessage(text){
@@ -23,6 +47,8 @@ export class CluesPage {
   }
 
   startScanning(){
+    this.getData();
+    console.log(this.clues);
     this.showMessage('startScanning');
     // Start tracking beacons!
     setTimeout(()=>this.startScan(), 500);
