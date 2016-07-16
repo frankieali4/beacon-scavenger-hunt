@@ -6,6 +6,7 @@
     "experimentalDecorators": true
   },
   "filesGlob": [
+    "app/pages/**/*.ts",
     "**/*.ts",
     "!node_modules/**/*"
   ],
@@ -21,6 +22,10 @@
   "files": [
     "app/app.ts",
     "typings/ngcordova.d.ts",
-    "typings/phonegap.d.ts"
+    "typings/phonegap.d.ts",
+    "app/pages/tabs/tabs.ts",
+    "app/pages/clues/clues.ts",
+    "app/pages/items/items.ts",
+    "app/pages/score/score.ts"
   ]
 }
