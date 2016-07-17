@@ -1,20 +1,36 @@
 __ng_jsonp__.__req0.finished([
-  {
-    "setting": {
-
+{
+  "setting": {
+  },
+  "beacons": [
+    {
+      "id": "1",
+      "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
+      "beaconMajor": "0",
+      "beaconMinor": "1",
+      "item": "Mexican Hat",
+      "clues": [
+        "This is clue 1 (for item 1)",
+        "This is clue 2 (for item 1)",
+        "This is clue 3 (for item 1)",
+        "This is clue 4 (for item 1)",
+        "This is clue 5 (for item 1)"
+      ]
     },
-    "beacons": [
-      {
-        "id": "1",
-        "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
-        "beaconMajor": "0",
-        "beaconMinor": "1"
-      },
-      {
-        "id": "2",
-        "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
-        "beaconMajor": "0",
-        "beaconMinor": "2"
-      }
-    ]
-  }])
+    {
+      "id": "2",
+      "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
+      "beaconMajor": "0",
+      "beaconMinor": "2",
+      "item": "Purple Turtle Toy",
+      "clues": [
+        "This is clue 1 (for item 2)",
+        "This is clue 2 (for item 2)",
+        "This is clue 3 (for item 2)",
+        "This is clue 4 (for item 2)",
+        "This is clue 5 (for item 2)"
+      ]
+    }
+  ]
+}
+])

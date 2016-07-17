@@ -5,9 +5,13 @@
 </ion-header>
 
 <ion-content padding class="clues">
-  <h1>Clues Within Range</h1>
-  <p id="message">Preparing...</p>
+  <h1>Clues To Find The Next Item</h1>
 
+  <ion-card class="clue-card" *ngFor="let clue of clues">
+    <ion-card-content>{{clue}}</ion-card-content>
+  </ion-card>
+
+  <p id="message">Preparing...</p>
   <ion-card class="beacon-card" *ngFor="let beacon of foundBeacons">
     <div class="beacon-distance beacon{{beacon.distance}}"></div>
     <ion-card-header>{{beacon.name}}</ion-card-header>
@@ -15,25 +19,5 @@
     <ion-card-content>DISTANCE: {{beacon.distance}}</ion-card-content>
   </ion-card>
 
-  <ion-card class="beacon-card" *ngIf="hasSLBeacon">
-    <ion-card-header>#1</ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col><img class="clue-img" src="/img/deltek.jpg"></ion-col>
-          <ion-col><img class="clue-img" src="/img/bruno.jpg"></ion-col>
-          <ion-col><img class="clue-img" src="/img/glasses.jpg"></ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Answer to Clue #1</ion-label>
-        <ion-input [(ngModel)]="answer01" type="text"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <div id="found-beacons"></div>
 
 </ion-content>
