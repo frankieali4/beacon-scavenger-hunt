@@ -1,8 +1,15 @@
+/// <reference path="../../../typings/node/lodash-3.10.d.ts" />
+/// <reference path="../../../typings/node/text-encoding.d.ts" />
 import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {CluesService} from './cluesService';
+import {IBeacon} from 'ionic-native';
+//import escape  = require('../../../node_modules/lodash');
+import * as lodash from "lodash";
+import * as textEncoding from "text-encoding";
 
 declare var evothings:any;
+
 
 @Component({
     templateUrl: 'build/pages/clues/clues.html',
@@ -21,6 +28,7 @@ export class CluesPage {
     itemsRemaining: Array<any>;
     clues = [];
     clueTimer = 3000;
+    message = 'Preparing...';
 
     constructor(
         private navController: NavController,
@@ -30,6 +38,7 @@ export class CluesPage {
         platform.ready().then(() => {
             this.startScanning();
         });
+
 
     }
 
@@ -67,10 +76,6 @@ export class CluesPage {
     // see if badges can be added to tabs to indicate updates
 
 
-    showMessage(text){
-        document.querySelector('#message').innerHTML = text;
-    }
-
 
     /**
      * Returns a random integer between min (inclusive) and max (exclusive)
@@ -82,7 +87,7 @@ export class CluesPage {
 
 
     getItem(){
-        console.log("here are your item! It's almost too easy");
+        //console.log("here are your item! It's almost too easy");
         //randomly pick a clue from the array
         let random = this.getRandomInt(0,this.itemsRemaining.length);
         console.log(random);
@@ -96,7 +101,7 @@ export class CluesPage {
         //display the first clue
         this.showClue();
 
-        console.log(this.item);
+        //console.log(this.item);
     }
 
     showClue(){
@@ -116,19 +121,82 @@ export class CluesPage {
 
     startScanning(){
         this.getData();
-        this.showMessage('startScanning');
+        this.message = 'Starting Scan';
         // Start tracking beacons!
-        setTimeout(()=>this.startScan(), 200);
+        //setTimeout(()=>this.startScan(), 1000);
         // Timer that refreshes the display.
-        this.timer = setInterval(()=>this.updateBeaconList(), 300);
+        //this.timer = setInterval(()=>this.updateBeaconList(), 1000);
+
+/* */
+// Request permission to use location on iOS
+        IBeacon.requestAlwaysAuthorization();
+// create a new delegate and register it with the native layer
+        let delegate = IBeacon.Delegate();
+
+// Subscribe to some of the delegate's event handlers
+        delegate.didRangeBeaconsInRegion()
+            .subscribe(
+                data => {
+                    console.log("------------------------");
+                    console.log('didRangeBeaconsInRegion');
+                    console.log(data);
+                    // Sample Results
+                    // No Beacons:                   {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didDetermineStateForRegion","state":"CLRegionStateInside"}
+                    // Beacon On:                    {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":-61,"major":4,"proximity":"ProximityNear","accuracy":0.6,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
+                    // Beacon On - Not Transmitting: {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":0,"major":4,"proximity":"ProximityUnknown","accuracy":-1,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
+                    // Multiple Beacons:             {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":-53,"major":5,"proximity":"ProximityNear","accuracy":0.49,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"},{"minor":0,"rssi":-77,"major":4,"proximity":"ProximityFar","accuracy":2.02,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
+                },
+                error => console.error
+            );
+        delegate.didStartMonitoringForRegion()
+            .subscribe(
+                data => {
+                    console.log("---------------------------");
+                    console.log('didStartMonitoringForRegion');
+                    console.log(data);
+                },
+                error => console.error
+            );
+        delegate.didEnterRegion()
+            .subscribe(
+                data => {
+                    console.log("--------------");
+                    console.log('didEnterRegion');
+                    console.log(data);
+                }
+            );
+        delegate.didDetermineStateForRegion()
+            .subscribe(
+                data => {
+                    console.log('--------------------------');
+                    console.log('didDetermineStateForRegion');
+                    console.log(data);
+                }
+
+            );
+
+
+        let beaconRegion = IBeacon.BeaconRegion('deskBeacon','37D34481-3585-45DA-BE7B-381DDD9AE0C7');
+
+        IBeacon.startRangingBeaconsInRegion(beaconRegion)
+            .then(
+                () => console.log('Native layer recieved the request to monitoring'),
+                error => console.error('Native layer failed to begin monitoring: ', error)
+            )
+        ;
+
+
+/* */
+
     }
 
+    /*
     startScan(){
         var self:any = this;
-        this.showMessage('Scan in progress.');
+        this.message = 'Scan in progress.';
         this.beacons = [], this.foundBeacons = [];
         evothings.eddystone.startScan(beacon => this.updateBeaconData(beacon),
-            error => this.showMessage('eddyston scan error '+error));
+            error => this.message = 'eddystone scan error ' + error)
     }
 
     updateBeaconData(beaconData:any){
@@ -144,30 +212,47 @@ export class CluesPage {
     removeOldBeacons(){
         var timeNow = Date.now();
         for (var key in this.beacons){
-            // Only show beacons updated during the last 60 seconds.
+            // Only show beacons updated during the last 4 seconds.
             var beacon = this.beacons[key];
-            if (beacon.timeStamp + 60000 < timeNow){
+            if (beacon.timeStamp + 4000 < timeNow){
                 delete this.beacons[key];
             }
         }
     }
 
     displayBeacons(){
-        var html = '';
         this.foundBeacons = [];
         this.hasSLBeacon = false;
         for (var key in this.beacons){
             let beacon = this.beacons[key];
+            //console.log(this.beacons[key]);
+            console.log("==================");
+            console.log("ecmascript decoder");
+            var decode = decodeURIComponent(lodash.escape(String.fromCharCode.apply(null, new Uint8Array(beacon.nid))));
+            console.log("beacon");
+            console.log(JSON.stringify(beacon));
+            console.log("==================");
+            console.log(decode);
+            console.log("TextDecoder");
+            console.log(TextDecoder);
+            var nameSpace = new textEncoding.TextDecoder("utf-8").decode(beacon.nid);
+            var instance = new textEncoding.TextDecoder("utf-8").decode(beacon.bid);
+            console.log("namespace: " + nameSpace);
+            console.log("instance: " + instance);
+            console.log("------------------");
             let beaconObj = {
                 name:beacon.name || 'Unnamed Beacon',
                 url:beacon.url || 'No URL for this Beacon',
+                nid:nameSpace || 'No NID for this Beacon',
+                bid:instance || 'No BID for this Beacon',
                 distance: Math.floor(evothings.eddystone.calculateAccuracy(
                     beacon.txPower, beacon.rssi))
             };
             this.foundBeacons.push(beaconObj);
-            console.log(beaconObj);
+            //console.log(beaconObj);
             if(beaconObj.url == 'http://sarahlamont.com') this.hasSLBeacon = true;
         }
 
     }
+    */
 }
