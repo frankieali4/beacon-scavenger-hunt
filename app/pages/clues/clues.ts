@@ -1,12 +1,7 @@
-/// <reference path="../../../typings/node/lodash-3.10.d.ts" />
-/// <reference path="../../../typings/node/text-encoding.d.ts" />
-import {Component} from '@angular/core';
+import {Component,NgZone} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {CluesService} from './cluesService';
 import {IBeacon} from 'ionic-native';
-//import escape  = require('../../../node_modules/lodash');
-import * as lodash from "lodash";
-import * as textEncoding from "text-encoding";
 
 declare var evothings:any;
 
@@ -19,22 +14,23 @@ export class CluesPage {
 
     //class variables
     beacons:Object = {};
-    timer:any = null;
     public foundBeacons = [];
-    public hasSLBeacon:Boolean = false;
     items: Array<any>;
     item: Object = {};
     itemsCompleted: Array<any>;
     itemsRemaining: Array<any>;
     clues = [];
     clueTimer = 3000;
-    message = 'Preparing...';
+    public message;
+    zone:NgZone;
 
     constructor(
         private navController: NavController,
         private cluesService: CluesService,
         platform: Platform
     ) {
+        this.zone = new NgZone({enableLongStackTrace: false});
+        this.message = 'Scanning for items...';
         platform.ready().then(() => {
             this.startScanning();
         });
@@ -47,6 +43,7 @@ export class CluesPage {
         console.log("getting data");
         this.cluesService.getClues().subscribe(
             data => {
+                //TODO: return data probably needs a promise
                 this.items = data[0]["beacons"];
 
                 //create a copy of all the items. As items are found they will be removed from this array
@@ -89,8 +86,9 @@ export class CluesPage {
     getItem(){
         //console.log("here are your item! It's almost too easy");
         //randomly pick a clue from the array
+        //let random = 0;
         let random = this.getRandomInt(0,this.itemsRemaining.length);
-        console.log(random);
+        //console.log(random);
 
         //assign the clue data to a variable
         this.item = this.itemsRemaining[random];
@@ -100,8 +98,9 @@ export class CluesPage {
 
         //display the first clue
         this.showClue();
-
-        //console.log(this.item);
+        console.log("----------------");
+        console.log("Item to be found");
+        console.log(this.item);
     }
 
     showClue(){
@@ -121,11 +120,8 @@ export class CluesPage {
 
     startScanning(){
         this.getData();
-        this.message = 'Starting Scan';
+
         // Start tracking beacons!
-        //setTimeout(()=>this.startScan(), 1000);
-        // Timer that refreshes the display.
-        //this.timer = setInterval(()=>this.updateBeaconList(), 1000);
 
 /* */
 // Request permission to use location on iOS
@@ -145,6 +141,10 @@ export class CluesPage {
                     // Beacon On:                    {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":-61,"major":4,"proximity":"ProximityNear","accuracy":0.6,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
                     // Beacon On - Not Transmitting: {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":0,"major":4,"proximity":"ProximityUnknown","accuracy":-1,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
                     // Multiple Beacons:             {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":-53,"major":5,"proximity":"ProximityNear","accuracy":0.49,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"},{"minor":0,"rssi":-77,"major":4,"proximity":"ProximityFar","accuracy":2.02,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
+
+                    if(data.beacons && data.beacons.length > 0){
+                        this.matchBeacon(data.beacons);
+                    }
                 },
                 error => console.error
             );
@@ -189,70 +189,43 @@ export class CluesPage {
 /* */
 
     }
-
-    /*
-    startScan(){
-        var self:any = this;
-        this.message = 'Scan in progress.';
-        this.beacons = [], this.foundBeacons = [];
-        evothings.eddystone.startScan(beacon => this.updateBeaconData(beacon),
-            error => this.message = 'eddystone scan error ' + error)
-    }
-
-    updateBeaconData(beaconData:any){
-        beaconData.timeStamp = Date.now();
-        this.beacons[beaconData.address] = beaconData;
-    }
-
-    updateBeaconList(){
-        this.removeOldBeacons();
-        this.displayBeacons();
-    }
-
-    removeOldBeacons(){
-        var timeNow = Date.now();
-        for (var key in this.beacons){
-            // Only show beacons updated during the last 4 seconds.
-            var beacon = this.beacons[key];
-            if (beacon.timeStamp + 4000 < timeNow){
-                delete this.beacons[key];
+    
+    matchBeacon(data) {
+        for (let i in data) {
+            var currentBeacon = this.item["beaconMajor"];
+            if (data[i]["major"] == parseInt(currentBeacon)) {
+                //show proximity
+                this.showProximity(data[i]);
             }
         }
     }
 
-    displayBeacons(){
-        this.foundBeacons = [];
-        this.hasSLBeacon = false;
-        for (var key in this.beacons){
-            let beacon = this.beacons[key];
-            //console.log(this.beacons[key]);
-            console.log("==================");
-            console.log("ecmascript decoder");
-            var decode = decodeURIComponent(lodash.escape(String.fromCharCode.apply(null, new Uint8Array(beacon.nid))));
-            console.log("beacon");
-            console.log(JSON.stringify(beacon));
-            console.log("==================");
-            console.log(decode);
-            console.log("TextDecoder");
-            console.log(TextDecoder);
-            var nameSpace = new textEncoding.TextDecoder("utf-8").decode(beacon.nid);
-            var instance = new textEncoding.TextDecoder("utf-8").decode(beacon.bid);
-            console.log("namespace: " + nameSpace);
-            console.log("instance: " + instance);
-            console.log("------------------");
-            let beaconObj = {
-                name:beacon.name || 'Unnamed Beacon',
-                url:beacon.url || 'No URL for this Beacon',
-                nid:nameSpace || 'No NID for this Beacon',
-                bid:instance || 'No BID for this Beacon',
-                distance: Math.floor(evothings.eddystone.calculateAccuracy(
-                    beacon.txPower, beacon.rssi))
-            };
-            this.foundBeacons.push(beaconObj);
-            //console.log(beaconObj);
-            if(beaconObj.url == 'http://sarahlamont.com') this.hasSLBeacon = true;
-        }
+    showProximity(data) {
 
+        //code must run in zone for realtime updates
+        this.zone.run(() => {
+            if (data.accuracy !== -1) {
+
+                let prox = data.proximity;
+                this.message = prox;
+
+                if (data.proximity === "ProximityImmediate") {
+                    let beaconObj = {
+                        name: this.item['item'] || 'Unnamed Beacon',
+                        distance: (data.accuracy / 3) + 'feet away'
+                    };
+                    this.foundBeacons[0] = beaconObj;
+                    this.message = "Beacon Found!";
+                } else {
+                    //clear beacon
+                    this.foundBeacons = [];
+                }
+            } else {
+                //clear beacon
+                this.message = "Scanning for items...";
+                this.foundBeacons = [];
+            }
+        });
     }
-    */
+
 }

@@ -11,11 +11,10 @@
     <ion-card-content>{{clue}}</ion-card-content>
   </ion-card>
 
-  <p id="message">Preparing...</p>
+  <p id="message">{{message}}</p>
   <ion-card class="beacon-card" *ngFor="let beacon of foundBeacons">
     <div class="beacon-distance beacon{{beacon.distance}}"></div>
     <ion-card-header>{{beacon.name}}</ion-card-header>
-    <ion-card-content>URL: {{beacon.url}}</ion-card-content>
     <ion-card-content>DISTANCE: {{beacon.distance}}</ion-card-content>
   </ion-card>
 

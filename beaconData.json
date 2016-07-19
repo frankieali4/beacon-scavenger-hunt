@@ -6,9 +6,9 @@ __ng_jsonp__.__req0.finished([
     {
       "id": "1",
       "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
-      "beaconMajor": "0",
-      "beaconMinor": "1",
-      "item": "Mexican Hat",
+      "beaconMajor": "4",
+      "beaconMinor": "0",
+      "item": "Mexican Hat (RadBeacon)",
       "clues": [
         "This is clue 1 (for item 1)",
         "This is clue 2 (for item 1)",
@@ -20,9 +20,9 @@ __ng_jsonp__.__req0.finished([
     {
       "id": "2",
       "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
-      "beaconMajor": "0",
-      "beaconMinor": "2",
-      "item": "Purple Turtle Toy",
+      "beaconMajor": "5",
+      "beaconMinor": "0",
+      "item": "Purple Turtle Toy (MacBeacon)",
       "clues": [
         "This is clue 1 (for item 2)",
         "This is clue 2 (for item 2)",
