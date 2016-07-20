@@ -37,7 +37,8 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-eddystone",
     "cordova-plugin-ble",
-    "com.unarin.cordova.beacon"
+    "com.unarin.cordova.beacon",
+    "cordova-plugin-email-composer"
   ],
   "cordovaPlatforms": [
     {

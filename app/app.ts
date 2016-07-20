@@ -4,6 +4,7 @@ import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 
+declare var cordova:any;
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
