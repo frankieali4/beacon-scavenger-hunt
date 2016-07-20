@@ -7,5 +7,7 @@
 </ion-header>
 
 <ion-content padding class="items">
-  <h1>Items</h1>
+  <ion-card class="clue-card" *ngFor="let item of things">
+    <ion-card-content>{{item}}</ion-card-content>
+  </ion-card>
 </ion-content>

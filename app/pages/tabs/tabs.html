@@ -1,5 +1,5 @@
 <ion-tabs tabsLayout="icon-left">
-  <ion-tab [root]="clues" tabTitle="Clues" tabIcon="help"></ion-tab>
-  <ion-tab [root]="items" tabTitle="Items" tabIcon="checkbox"></ion-tab>
-  <ion-tab [root]="score" tabTitle="Score" tabIcon="trophy"></ion-tab>
+  <ion-tab [root]="clues" tabTitle="Clues" [rootParams]="beaconParams" tabIcon="help"></ion-tab>
+  <ion-tab [root]="items" tabTitle="Items" [rootParams]="beaconParams" tabIcon="checkbox"></ion-tab>
+  <ion-tab [root]="score" tabTitle="Score" [rootParams]="beaconParams" tabIcon="trophy"></ion-tab>
 </ion-tabs>

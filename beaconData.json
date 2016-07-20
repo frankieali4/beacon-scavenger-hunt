@@ -4,31 +4,51 @@ __ng_jsonp__.__req0.finished([
   },
   "beacons": [
     {
+      "id": "0",
+      "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
+      "beaconMajor": "1",
+      "beaconMinor": "0",
+      "item": "Bottle of Sunscreen",
+      "clues": [
+        "For those of Irish descent, this is a summer must-have.",
+        "Before this became a staple of summer, a George Hamilton complexion was en vogue.",
+        "Donald trump looks like he uses this on only parts of his face."
+      ]
+    },
+    {
       "id": "1",
       "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
-      "beaconMajor": "4",
+      "beaconMajor": "2",
       "beaconMinor": "0",
-      "item": "Mexican Hat (RadBeacon)",
+      "item": "Nat’s baseball Hat",
       "clues": [
-        "This is clue 1 (for item 1)",
-        "This is clue 2 (for item 1)",
-        "This is clue 3 (for item 1)",
-        "This is clue 4 (for item 1)",
-        "This is clue 5 (for item 1)"
+        "This lid kind of looks like it’s advertising Walmart",
+        "Keep the sun out of your eyes",
+        "Wear this to show your spirit, but you may get hat head"
       ]
     },
     {
       "id": "2",
       "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
-      "beaconMajor": "5",
+      "beaconMajor": "3",
       "beaconMinor": "0",
-      "item": "Purple Turtle Toy (MacBeacon)",
+      "item": "Hot dog",
       "clues": [
-        "This is clue 1 (for item 2)",
-        "This is clue 2 (for item 2)",
-        "This is clue 3 (for item 2)",
-        "This is clue 4 (for item 2)",
-        "This is clue 5 (for item 2)"
+        "Signature dish of America’s pastime",
+        "This baseball game staple is said to have originated in Frankfurt-am-Main, Germany around 1484",
+        "About 155 million of these bad boys are eaten on the fourth of July"
+      ]
+    },
+    {
+      "id": "3",
+      "beaconUUID": "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6",
+      "beaconMajor": "4",
+      "beaconMinor": "0",
+      "item": "Watermelon",
+      "clues": [
+        "This sweet summer fruit is made up mostly of water",
+        "This round summer fruit is actually a vegetable (though people still continue to debate about that fact)",
+        "The heaviest one of these fruits weighed in a 268.6 pounds!"
       ]
     }
   ]

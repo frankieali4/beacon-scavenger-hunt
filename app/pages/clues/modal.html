@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Congratulations!
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="modal">
+    <p>You found the <strong>{{params.data.item}}</strong></p>
+    <ion-buttons start>
+        <button (click)="dismissModal()">
+            <span primary>Score!</span>
+            <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-content>
