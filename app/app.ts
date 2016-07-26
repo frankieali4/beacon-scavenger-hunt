@@ -2,22 +2,18 @@ import {Component} from '@angular/core';
 import {JSONP_PROVIDERS} from '@angular/http';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {TabsPage} from './pages/tabs/tabs';
+import {SplashPage} from './pages/splash/splash';
 
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
 })
 export class MyApp {
-
-  private rootPage: any;
+  rootPage: any = SplashPage;
 
   constructor(private platform: Platform) {
-    this.rootPage = TabsPage;
     this.platform = platform;
-
     this.initializeApp();
-
   }
   
   initializeApp(){
@@ -27,7 +23,6 @@ export class MyApp {
       StatusBar.styleDefault();
       //console.log(this.platform.platforms());
     });
-
   }
 }
 

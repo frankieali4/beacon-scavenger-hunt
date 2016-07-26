@@ -7,8 +7,14 @@
 // By default each design mode includes these shared imports.
 // App Shared Sass variables belong in app.variables.scss.
 
+@import "../pages/splash/splash";
+
 @import "../pages/clues/clues";
 
 @import "../pages/items/items";
 
 @import "../pages/score/score";
+
+body{
+	background: url('../../img/003-subtle-light-pattern.jpg') transparent;
+}

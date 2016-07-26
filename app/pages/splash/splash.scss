@@ -1,0 +1,25 @@
+.splash-page{
+	.slide-image{
+		padding:0 25%;
+		margin:100px 0 30px 0;
+	}
+	.slide-zoom{
+		height:90%;
+	}
+	.toolbar{
+		position:absolute;
+	}
+	.toolbar-background{
+		background:none;
+	}
+	.slide-skip-button{
+		color:#40395F;
+	}
+	h1,h2,h3,p{
+		margin-right:10%;
+		margin-left:10%;
+	}
+	.button-large{
+		margin-top:30px;
+	}
+}
