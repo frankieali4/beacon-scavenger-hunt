@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {TabsPage} from '../tabs/tabs';
+import {GamePage} from '../game/game';
+
 import {Slides} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 
@@ -23,6 +25,6 @@ export class SplashPage {
   	goToOtherPage(){
       //push another page onto the history stack
       //causing the nav controller to animate the new page in
-      this.nav.push(TabsPage);
+      this.nav.push(GamePage);
     }
 }

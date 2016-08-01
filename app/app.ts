@@ -3,10 +3,12 @@ import {JSONP_PROVIDERS} from '@angular/http';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {SplashPage} from './pages/splash/splash';
+import { ItemClueService } from './services/itemsclues.service';
 
 
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: '<ion-nav [root]="rootPage"></ion-nav>',
+  providers:[ItemClueService]
 })
 export class MyApp {
   rootPage: any = SplashPage;

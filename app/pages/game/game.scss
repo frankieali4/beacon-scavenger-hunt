@@ -1,0 +1,116 @@
+.game{
+	background: url('../../img/003-subtle-light-pattern.jpg') transparent;
+	ion-label{
+		white-space: normal;
+		margin: 6px 8px 6px 0;
+	}
+	.item-card-wrapper{
+		position: relative;
+		&.found{
+			ion-card.front{
+				-webkit-transform: rotateY(90deg);
+				   -moz-transform: rotateY(90deg);
+				    -ms-transform: rotateY(90deg);
+				     -o-transform: rotateY(90deg);
+				        transform: rotateY(90deg);
+			}
+			ion-card.back{
+			    opacity:1;
+			    -webkit-transform: rotateY(0deg);
+				   -moz-transform: rotateY(0deg);
+				    -ms-transform: rotateY(0deg);
+				     -o-transform: rotateY(0deg);
+				        transform: rotateY(0deg);
+			}
+		}
+		ion-card {
+			position: relative;
+			-webkit-transition: all .3s ease-in-out;
+			   -moz-transition: all .3s ease-in-out;
+			    -ms-transition: all .3s ease-in-out;
+			     -o-transition: all .3s ease-in-out;
+			        transition: all .3s ease-in-out;
+			&.back{
+				transition-delay: .3s;
+			    position: absolute;
+			    top: 0;
+			    height: 100%;
+			    opacity:0;
+			    -webkit-transform: rotateY(90deg);
+				   -moz-transform: rotateY(90deg);
+				    -ms-transform: rotateY(90deg);
+				     -o-transform: rotateY(90deg);
+				        transform: rotateY(90deg);
+
+				box-shadow: none;
+				background: none;
+		        ion-card-content{
+		        	background: none;
+		        	
+
+		        	.left{
+		        		img{
+			        		max-width: 90%;
+			        		margin:10px auto;
+			        		max-height:150px;
+			        	}
+		        		float:left;
+		        		width:50%;
+		        	}
+		        	.right{
+		        		float:right;
+		        		width: 50%;
+		        		img{
+		        			margin-top:50px;
+		        		}
+		        	}
+		        }
+			}	
+
+			ion-card-content{
+				background: #fff;
+				padding:5px 10px 8px 10px;
+				ion-list-header{
+					text-transform: uppercase;
+					font-size: 1.2rem;
+	    			font-weight: bold;
+				}
+			}
+		}
+	}
+	.clue-card{
+		border-radius:50px;
+	}
+	ion-list{
+		ion-icon[item-left] + .item-inner{
+			margin-left:12px;
+		}
+
+		.item{
+			cursor:pointer;
+
+			.item-icon{
+				color:#F68B00;
+
+				
+			}
+			border-bottom:1px solid #ccc;
+			&:last-child{
+				border-bottom: 0px;
+			}
+			.item-inner{
+				border:0px;
+			}
+
+			&.locked{
+				.item-icon{
+					color:#A1796F;
+				}
+				p{
+					color: transparent;
+   					text-shadow: 0 0 5px rgba(0,0,0,0.5);
+				}
+			}
+		}
+	}
+}

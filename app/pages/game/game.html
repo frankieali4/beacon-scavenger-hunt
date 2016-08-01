@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Find the following items!</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="game">
+
+  <p text-center>Click a clue in the list below to unlock and view the clue.</p>
+  
+
+  <div class="item-card-wrapper" *ngFor="let item of items" (click)="toggleItem(item)" [class.found]="item.found">
+    <ion-card class="front">
+      <ion-card-content>
+        <ion-list>
+          <ion-list-header>
+            <ion-icon name="locate" item-left></ion-icon>Find me...
+          </ion-list-header>
+          
+          <ion-item *ngFor="let clue of item.clues" (click)=unlockClue(clue) [class.locked]="!clue.unlocked">
+            <ion-icon [name]="clue.unlocked ? 'unlock' : 'lock'" item-left></ion-icon>
+            <p>{{clue.clue}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="back">
+      <ion-card-content>
+        <div class="left"><img src="img/just-coin.svg" /></div>
+        <div class="right">
+                <ion-icon name="close-circle" (click)="hideItem(item)"></ion-icon>
+                <img src="img/item-found.svg" /><p>+ XX points!</p>
+        </div>
+      </ion-card-content>
+    </ion-card> 
+    
+  </div>
+  
+
+</ion-content>
