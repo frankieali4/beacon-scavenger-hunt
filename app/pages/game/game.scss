@@ -1,5 +1,29 @@
 .game{
 	background: url('../../img/003-subtle-light-pattern.jpg') transparent;
+
+	.scoreboard{
+		margin: -16px -16px 0 -16px;
+	    background: #ccc;
+	    padding: 5px 5px 5px 15px;
+	    
+		.label{
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 1em;
+			margin-right:7px;
+		}
+		.scoreboard-group{
+			padding-right:10px;
+			ion-icon{
+				padding-right:3px;
+			}
+			&.right{
+				float:right;
+				padding-right:0;
+			}
+		}
+	}
+
 	ion-label{
 		white-space: normal;
 		margin: 6px 8px 6px 0;
@@ -34,7 +58,7 @@
 				transition-delay: .3s;
 			    position: absolute;
 			    top: 0;
-			    height: 100%;
+			    //height: 100%;
 			    opacity:0;
 			    -webkit-transform: rotateY(90deg);
 				   -moz-transform: rotateY(90deg);
@@ -42,24 +66,36 @@
 				     -o-transform: rotateY(90deg);
 				        transform: rotateY(90deg);
 
-				box-shadow: none;
-				background: none;
+				// box-shadow: none;
+				// background: none;
+				background: #F68B00;
 		        ion-card-content{
 		        	background: none;
-		        	
-
+		        	color:#fff;
+		        	margin-top: 15px;
 		        	.left{
 		        		img{
 			        		max-width: 90%;
 			        		margin:10px auto;
 			        		max-height:150px;
 			        	}
-		        		float:left;
-		        		width:50%;
+		        		float: left;
+					    width: 40%;
+					    text-align: right;
+					    padding-right: 10px;
+					    ion-icon{
+					    	font-size:3em;
+					    }
 		        	}
 		        	.right{
-		        		float:right;
-		        		width: 50%;
+		        		width: 60%;
+					    padding-left: 5px;
+					    color: #fff;
+					    float:right;
+					    margin-bottom: 15px;
+					    h1,p{
+					    	color:#fff;
+					    }
 		        		img{
 		        			margin-top:50px;
 		        		}
@@ -78,9 +114,7 @@
 			}
 		}
 	}
-	.clue-card{
-		border-radius:50px;
-	}
+
 	ion-list{
 		ion-icon[item-left] + .item-inner{
 			margin-left:12px;
