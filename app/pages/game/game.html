@@ -13,21 +13,21 @@
       <span class="label">Items found</span><ion-icon *ngFor="let item of items" [name]="item.found ? 'ios-checkmark-circle' : 'ios-checkmark-circle-outline'"></ion-icon>
     </span>
     <span class="scoreboard-group right">
-      <span class="label">Score</span><ion-badge item-right>260</ion-badge>
+      <span class="label">Score</span><ion-badge item-right>0</ion-badge>
     </span>
   </div>
   <p text-center>Click a clue in the list below to unlock and view the clue.</p>
   
 
-  <div class="item-card-wrapper" *ngFor="let item of items" (click)="toggleItem(item)" [class.found]="item.found">
+  <div class="item-card-wrapper" *ngFor="let item of items" [class.found]="item.found" [class.remove-me]="!item.ingame">
     <ion-card class="front">
       <ion-card-content>
         <ion-list>
-          <ion-list-header>
-            <ion-icon name="locate" item-left></ion-icon>Find me...
+          <ion-list-header (click)=toggleItem(item)>
+            <ion-icon name="locate" item-left></ion-icon><span class="label">Find me...</span> <span class="right"><span class="label">Item Value: </span><ion-badge item-right>{{item.currentvalue}}</ion-badge></span>
           </ion-list-header>
           
-          <ion-item *ngFor="let clue of item.clues" (click)=unlockClue(clue) [class.locked]="!clue.unlocked">
+          <ion-item *ngFor="let clue of item.clues" (click)=unlockClue(item,clue) [class.locked]="!clue.unlocked">
             <ion-icon [name]="clue.unlocked ? 'unlock' : 'lock'" item-left></ion-icon>
             <p>{{clue.clue}}</p>
           </ion-item>
@@ -40,7 +40,7 @@
         <div class="left"><ion-icon name="checkmark-circle"></ion-icon></div>
         <div class="right">
             <!-- <ion-icon name="close-circle" (click)="hideItem(item)"></ion-icon> -->
-            <h1>Item found!</h1><p>+ XX points!</p>
+            <h1>Item found!</h1><p>+ {{item.currentvalue}} points!</p>
         </div>
       </ion-card-content>
     </ion-card> 

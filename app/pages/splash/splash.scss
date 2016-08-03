@@ -6,6 +6,21 @@
 	}
 	.slide-zoom{
 		height:90%;
+
+		@media screen and (min-width: $grid-responsive-sm-break) {//$grid-responsive-sm-break
+			text-align: left;
+		    img{
+	    	    padding: 0;
+			    float: left;
+			    width: 34%;
+			    margin-left: 30px;
+			    margin-right: 30px;
+		    }
+		    h1{
+		    	margin-top: 50px;
+		    }
+	  	}
+
 	}
 	.toolbar{
 		position:absolute;

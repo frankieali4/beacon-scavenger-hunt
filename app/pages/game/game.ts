@@ -5,7 +5,8 @@ import {
   state,
   style,
   transition,
-  animate
+  animate,
+  keyframes
 } from '@angular/core';
 
 import {NavController} from 'ionic-angular';
@@ -19,7 +20,6 @@ import {Clue} from '../../components/clue';
 })
 
 export class GamePage implements OnInit {
-    state:String = "inactive";
     items:Item[];
 
   	constructor(private nav: NavController, private clueService: ItemClueService) {}
@@ -35,10 +35,17 @@ export class GamePage implements OnInit {
   	toggleItem(item:Item){
       if(!item.found) item.found = !item.found;
       //console.log('this state = '+this.state);
+      setTimeout(() => {
+        item.ingame = false;
+      }, 600);
     }
-    unlockClue(clue:Clue){
+    unlockClue(item:Item, clue:Clue){
       if(!clue.unlocked) clue.unlocked = !clue.unlocked;
-      //console.log('is unlocked? '+ clue.unlocked);
+      var lockedclues = item.clues.filter(function($clue){
+        return !$clue.unlocked;
+      });
+      var cluevalue = Math.round(item.itemvalue / item.clues.length);
+      if(lockedclues.length < item.clues.length-1) item.currentvalue = (lockedclues.length+1) * cluevalue;
     }
     hideItem(item:Item){
       this.items = this.items.filter(function( $item ) {

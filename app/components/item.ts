@@ -3,5 +3,8 @@ export class Item{
 	id: number;
 	name: string;
 	clues:Clue[];
-	found:boolean
+	found:boolean;
+	ingame:boolean;
+	itemvalue:number;
+	currentvalue:number
 }
