@@ -6,8 +6,6 @@
 		@media screen and (max-width: 420px) {//$grid-responsive-sm-break
 		    font-size:1.1rem;
 	  	}
-	  	
-
 		margin: -16px -16px 0 -16px;
 	    background: #ccc;
 	    padding: 5px 5px 5px 15px;
@@ -29,6 +27,11 @@
 			&.right{
 				float:right;
 				padding-right:0;
+			}
+		}
+		.total-score{
+			&.changed{
+				animation: total-score-draw-attention 1s linear;
 			}
 		}
 	}
@@ -129,6 +132,11 @@
 					text-transform: uppercase;
 					font-size: 1.2rem;
 	    			font-weight: bold;
+	    			
+	    			ion-icon{
+	    				font-size: 2.5em;
+    					margin: 8px 0;
+	    			}
 	    			.label{
 	    				margin-top:4px;
 	    				display: inline-block;
@@ -139,7 +147,7 @@
 	    					margin:4px;
 	    					background-color:#F68B00;
 	    					&.changed{
-	    						animation: draw-attention .5s linear;
+	    						animation: card-score-draw-attention 1s linear;
 	    					}
 	    				}
 	    			}
@@ -157,6 +165,7 @@
 			cursor:pointer;
 
 			.item-icon{
+				margin:10px 0;
 				color:#F68B00;
               -webkit-transition: all .2s ease-in-out;
 			   -moz-transition: all .2s ease-in-out;
@@ -192,7 +201,18 @@
 		}
 	}
 }
-@keyframes draw-attention {
-  0%   { background-color: #F68B00; }
-  100% { background-color:#8D0B56; }
+@keyframes card-score-draw-attention {
+  0%   { background-color:#F68B00; }
+  10% { background-color:#8D0B56; }
+  50%   { background-color:#F68B00; }
+  60% { background-color:#8D0B56; }
+  100%   { background-color:#F68B00; }
+}
+
+@keyframes total-score-draw-attention {
+  0%   { background-color:#8D0B56; }
+  10% { background-color:#F68B00; }
+  50%   { background-color:#8D0B56; }
+  60% { background-color:#F68B00; }
+  100%   { background-color:#8D0B56; }
 }

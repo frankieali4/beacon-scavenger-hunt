@@ -7,24 +7,24 @@
 <ion-content padding class="game">
   <div class="scoreboard">
     <span class="scoreboard-group">
-      <span class="label">Time</span><ion-badge item-right>1:01</ion-badge>
+      <span class="label">Time</span><ion-badge item-right>{{displayTime}}</ion-badge>
     </span>
     <span class="scoreboard-group">
       <span class="label">Items found</span><ion-icon *ngFor="let item of items" [name]="item.found ? 'ios-checkmark-circle' : 'ios-checkmark-circle-outline'"></ion-icon>
     </span>
     <span class="scoreboard-group right">
-      <span class="label">Score</span><ion-badge item-right>0</ion-badge>
+      <span class="label">Score</span><ion-badge item-right class="total-score">{{totalScore}}</ion-badge>
     </span>
   </div>
   <p text-center>Click a clue in the list below to unlock and view the clue.</p>
   
 
   <div class="item-card-wrapper" *ngFor="let item of items" [class.found]="item.found" [class.remove-me]="!item.ingame">
-    <ion-card class="front">
+    <ion-card class="front" [id]="'item'+item.id">
       <ion-card-content>
         <ion-list>
-          <ion-list-header (click)=toggleItem(item)>
-            <ion-icon name="locate" item-left></ion-icon><span class="label">Find me...</span> <span class="right"><span class="label">Item Value: </span><ion-badge item-right>{{item.currentvalue}}</ion-badge></span>
+          <ion-list-header (click)=toggleItemFound(item)>
+            <ion-icon name="ios-navigate" item-left></ion-icon><span class="label">Find me...</span> <span class="right"><span class="label">Item Value: </span><ion-badge item-right class="current-value">{{item.currentvalue}}</ion-badge></span>
           </ion-list-header>
           
           <ion-item *ngFor="let clue of item.clues" (click)=unlockClue(item,clue) [class.locked]="!clue.unlocked">
@@ -46,5 +46,8 @@
     </ion-card> 
   </div>
   
+  <div text-center>
+    <button (click)="doPromptIncomplete()">End Game and Submit current score</button>
+  </div>
 
 </ion-content>

@@ -1,29 +1,20 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {GamePage} from '../game/game';
 
 import {Slides} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 
 @Component({
-  templateUrl: 'build/pages/splash/splash.html'
+  templateUrl: 'build/pages/complete/complete.html'
 })
 
-export class SplashPage {
-	introSlideOptions = {
-	    pager:true
-	};
-	@ViewChild('introSlider') slider: Slides;
+export class CompletePage {
 
   	constructor(private nav: NavController) {}
-
-  	goToEnd() {
-	    this.slider.slideTo(this.slider.length(), 800);
-	  }
 
   	goToOtherPage(){
       //push another page onto the history stack
       //causing the nav controller to animate the new page in
-      this.nav.push(GamePage);
+      //this.nav.push(GamePage);
     }
 }
