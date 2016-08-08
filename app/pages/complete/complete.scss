@@ -1,0 +1,62 @@
+.complete{
+	background: url('../../img/003-subtle-light-pattern.jpg') transparent;
+
+	ion-card-content{
+		background: #fff;
+		padding:5px 10px 8px 10px;
+		ion-list-header{
+			text-transform: uppercase;
+			font-size: 1.2rem;
+			font-weight: bold;
+			
+			ion-icon{
+				font-size: 2.5em;
+				margin: 8px 0;
+				color:#F68B00;
+			}
+			.label{
+				display: inline-block;
+				vertical-align: top;
+			    margin-top: 1em;
+			    margin-left: .8em;
+			    color:#F68B00;
+			    font-size: 1.2em;
+			}
+			
+		}
+	}
+	ion-label{
+		white-space: normal;
+		margin: 6px 8px 6px 0;
+	}
+	
+	ion-list{
+		ion-icon[item-left] + .item-inner{
+			margin-left:12px;
+		}
+
+		.item{
+			cursor:pointer;
+
+			.item-icon{
+				margin:10px 0;
+				color:#F68B00;
+				
+			}
+			border-bottom:1px solid #ccc;
+			&:last-child{
+				border-bottom: 0px;
+			}
+			.item-inner{
+				border:0px;
+			}
+			.right{
+				float:right;
+				ion-badge{
+					margin:4px;
+					background-color:#F68B00;
+				}
+			}
+		}
+	}
+}

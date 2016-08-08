@@ -61,22 +61,31 @@ export class GamePage implements OnInit {
       this.drawAttention($('.total-score'));
       setTimeout(() => {
         item.ingame = false;
-        this.testComplete();
+        if(this.testComplete()) this.completeGame();
       }, 600);
       this.totalScore += item.currentvalue;
-      
+    }
+    completeGame(){
+      if(this.testComplete()) {
+        this.alertCompletion(true);
+        clearInterval(this.timerInterval);
+      }else{
+        this.alertCompletion(false);
+      }
     }
     testComplete(){
       let itemsNotFound = this.items.filter(function($item){
         return !$item.found;
       });
-      if(itemsNotFound.length<1) this.alertCompletion();
+      if(itemsNotFound.length<1) {
+        return true;
+      }else{
+        return false;
+      }
     }
 
-    alertCompletion(){
-      clearInterval(this.timerInterval);
-      this.doPromptComplete();
-      //console.log('you\'ve found them all');
+    alertCompletion(allFound:boolean){
+      this.doCompletePrompt(allFound);
     }
 
     unlockClue(item:Item, clue:Clue){
@@ -105,10 +114,12 @@ export class GamePage implements OnInit {
       });
     }
   	
-    doPromptComplete() {
+    doCompletePrompt(allFound:boolean){
+      let title = allFound ? 'You\'ve found all the items!' : 'Are you sure you want to end the game?';
+      let message = allFound ? 'Enter your full name below to submit your score.' : 'Enter your full name below to submit your current score.';
       let prompt = Alert.create({
-        title: 'You\'ve found all the items!',
-        message: 'Enter your full name below to submit your score.',
+        title: title,
+        message: message,
         inputs: [
           {
             name: 'name',
@@ -125,42 +136,18 @@ export class GamePage implements OnInit {
           {
             text: 'Save',
             handler: data => {
-              this.gotoGameEnd();
+              this.gotoGameEnd(data);
             }
           }
         ]
       });
       this.nav.present(prompt);
     }
-    doPromptIncomplete() {
-      let prompt = Alert.create({
-        title: 'Are you sure you want to end the game?',
-        message: 'Enter your full name below to submit your current score.',
-        inputs: [
-          {
-            name: 'name',
-            placeholder: 'Name'
-          },
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            handler: data => {
-              console.log('Cancel clicked');
-            }
-          },
-          {
-            text: 'Save',
-            handler: data => {
-              this.gotoGameEnd();
-            }
-          }
-        ]
-      });
-      this.nav.present(prompt);
-    }
-    gotoGameEnd(){
+
+    gotoGameEnd(data){
       clearInterval(this.timerInterval);
+      this.clueService.saveCompleteItems(this.items);
+      this.clueService.saveScoreSubmission(data.name, data.email, this.totalScore, this.currentTime);
       this.nav.push(CompletePage);
     }
 }

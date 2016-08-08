@@ -5,6 +5,25 @@
 </ion-header>
 
 <ion-content padding class="complete">
-  
+  <ion-card>
+      <ion-card-content>
 
+        <ion-list>
+          <ion-list-header>
+            <ion-icon ios="ios-medal" md="md-medal"></ion-icon><span class="label">{{finalScoreInfo.name}}'s Submission Stats</span>
+          </ion-list-header>
+          
+          <ion-item>
+            Items Found<ion-badge item-right>{{amountFound}}</ion-badge>
+          </ion-item>
+          <ion-item>
+            Total Time<ion-badge item-right>{{finalDisplayTime}}</ion-badge>
+          </ion-item>
+          <ion-item>
+            Final Score<ion-badge item-right>{{finalScoreInfo.score}}</ion-badge>
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
 </ion-content>
