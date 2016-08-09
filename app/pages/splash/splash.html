@@ -17,43 +17,43 @@
 
 <ion-slides #introSlider [options]="introSlideOptions" class="splash-page">
   <ion-slide>
-  	<img class="slide-image" src="img/slide-icons/map-icon.svg" />
-    <h1>Welcome to the<br>SGS Scavenger Hunt!</h1>
-    <p>This is a physical web beacon-enabled hunt around the SGS Office.</p>
+  	<img class="slide-image" src="img/slide-icons/intro-icon.svg" />
+    <img class="slide-image logo" src="img/slide-icons/beaconquest.svg" />
+    <p>A ble beacon enabled<br>scavenger hunt</p>
   </ion-slide>
 
   <ion-slide>
-    <img class="slide-image" src="img/slide-icons/timer-icon.svg" />
+    <img class="slide-image instruction" src="img/slide-icons/timer-icon.svg" />
     <h1>How it works</h1>
-    <p>When the game is started, a timer will begin, and a clue will appear.</p>
+    <p>When the game is started, a timer will begin, and clue cards will appear.</p>
   </ion-slide>
 
   <ion-slide>
-    <img class="slide-image" src="img/slide-icons/telescope-icon.svg" />
-    <h1>Search for the objects</h1>
-    <p>Try to determine the object in the office that the clue is describing. When you have found the correct object, your phone will be sent a message from the object's beacon.</p>
+    <img class="slide-image instruction" src="img/slide-icons/telescope-icon.svg" />
+    <h1>Search</h1>
+    <p>Try to find the object the clues describe. When you have found the correct object, your phone will be alerted by the object's beacon.</p>
   </ion-slide>
 
   <ion-slide>
-    <img class="slide-image" src="img/slide-icons/question-icon.svg" />
-    <h1>Can't find the object?</h1>
-    <p>If you can't find the object from the first clue, you will be able to request 2 more clues. However, the more clues you request, the less points you get!</p>
+    <img class="slide-image instruction" src="img/slide-icons/question-icon.svg" />
+    <h1>Stumped?</h1>
+    <p>If you can't find the object from its first clue, you can request two more clues. However, the more clues you request, the less points you get!</p>
   </ion-slide>
 
   <ion-slide>
-    <img class="slide-image" src="img/slide-icons/treasure-icon.svg" />
-    <h1>Winning the Game</h1>
-    <p>The goal is to find all 4 objects using the least amount of clues, in the shortest time possible.</p>
+    <img class="slide-image instruction" src="img/slide-icons/treasure-icon.svg" />
+    <h1>Winning</h1>
+    <p>The goal is to find all objects using the least amount of clues, in the shortest time possible.</p>
   </ion-slide>
 
   <ion-slide>
-    <img class="slide-image" src="img/slide-icons/ship-icon.svg" />
-    <h1>Submit your Score</h1>
-    <p>When you have found all the objects, submit your score. The scores will be ranked and the winner will be announced after all the participants have finished!</p>
+    <img class="slide-image instruction" src="img/slide-icons/ship-icon.svg" />
+    <h1>Submit</h1>
+    <p>When you are done, submit your score. The scores will be ranked and the winner will be announced!</p>
   </ion-slide>
   <ion-slide>
-    <img class="slide-image" src="img/slide-icons/map-icon.svg" />
-    <h1>Are you ready to begin?</h1>
+    <img class="slide-image instruction" src="img/slide-icons/map-icon.svg" />
+    <h1>Ready?</h1>
     <p>Clicking the start button will begin the timer, so wait until you are ready to start the game before pressing it!</p>
     <button large (click)="goToOtherPage()">
 		Start the Hunt!

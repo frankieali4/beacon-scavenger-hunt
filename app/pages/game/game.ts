@@ -10,15 +10,19 @@ import {
 } from '@angular/core';
 
 declare var $:any;
+//declare var evothings:any;
 
 import { Alert, NavController } from 'ionic-angular';
 import { CompletePage } from '../complete/complete';
 import { Item } from '../../components/item';
 import { ItemClueService } from '../../services/itemsclues.service';
-import {Clue} from '../../components/clue';
+import { BeaconService } from '../../services/beacon.service';
+import { Clue } from '../../components/clue';
+import { Beacon } from '../../components/beacon';
 
 @Component({
-  templateUrl: 'build/pages/game/game.html'
+  templateUrl: 'build/pages/game/game.html',
+  providers: [BeaconService]
 })
 
 export class GamePage implements OnInit {
@@ -28,16 +32,29 @@ export class GamePage implements OnInit {
     displayTime:string = '0';
     startDate:Date;
     timerInterval:any;
+    unlockedBeacons:Object = {};
 
-  	constructor(private nav: NavController, private clueService: ItemClueService) {}
+  	constructor(private nav: NavController, private clueService: ItemClueService, private beaconService:BeaconService) {
+      this.beaconService.oBeaconDetected$.subscribe((foundBeacons: Beacon[]) => { 
+        console.log('change in service value');
+        console.log(foundBeacons);
+        this.showTestMessage(foundBeacons);
+      });
+    }
 
     getItems(){
-      this.clueService.getItemClues().then(items => this.items = items);
+      this.clueService.getItemClues().then(items => {
+        this.items = items;
+        let firstItem = this.items.find(item => item.clues[0].unlocked);
+        this.unlockedBeacons[firstItem.beacon.major] = {'itemid':firstItem.id, uuid:firstItem.beacon.uuid};
+      });
+      
     }
     
     ngOnInit(){
       this.getItems();
       this.startTimer();
+      this.beaconService.startScanning();
     }
 
     startTimer(){
@@ -53,10 +70,12 @@ export class GamePage implements OnInit {
     convertMS(ms:number){
        let min = (ms/1000/60) << 0,
        sec = (ms/1000) % 60;
-       return min+':'+Math.floor(sec);
+       let zero = sec<10 ? '0' :'';
+       return min+':'+zero+Math.floor(sec);
     }
 
   	toggleItemFound(item:Item){
+      //this.beaconService.updateFoundBeacons({uuid:'true'+Math.random(), major:0, minor:0});
       if(!item.found) item.found = !item.found;
       this.drawAttention($('.total-score'));
       setTimeout(() => {
@@ -93,6 +112,7 @@ export class GamePage implements OnInit {
       var lockedclues = item.clues.filter(function($clue){
         return !$clue.unlocked;
       });
+      if(!this.unlockedBeacons[item.beacon.major]) this.unlockedBeacons[item.beacon.major] = {'itemid':item.id, uuid:item.beacon.uuid};
       var cluevalue = Math.round(item.itemvalue / item.clues.length);
       if(lockedclues.length < item.clues.length-1) {
         item.currentvalue = (lockedclues.length+1) * cluevalue;
@@ -149,5 +169,17 @@ export class GamePage implements OnInit {
       this.clueService.saveCompleteItems(this.items);
       this.clueService.saveScoreSubmission(data.name, data.email, this.totalScore, this.currentTime);
       this.nav.push(CompletePage);
+    }
+
+    showTestMessage(beaconsFound){
+      let message = '';
+      for(let i in beaconsFound){
+        let beacon = beaconsFound[i];
+        message.concat(message, beacon.uuid + ', major: '+beacon.major+', minor: '+beacon.minor);
+      }
+      this.nav.present(Alert.create({
+        title:'found beacons',
+        message:message
+      }));
     }
 }

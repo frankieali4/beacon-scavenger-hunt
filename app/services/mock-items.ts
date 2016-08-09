@@ -1,6 +1,5 @@
 import {Item} from '../components/item';
 
-
 export var ITEMS: Item[] = [
 	{ 	id: 1, 
 		name: 'Bottle of Sunscreen', 
@@ -8,7 +7,12 @@ export var ITEMS: Item[] = [
 		found: false,
 		ingame: true,
 		itemvalue:100,
-		currentvalue:100
+		currentvalue:100,
+		beacon:{
+			uuid:'2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6',
+			major:1,
+			minor:0
+		}
 	},
 	{ 	id: 2, 
 		name: 'Baseball Hat', 
@@ -16,7 +20,12 @@ export var ITEMS: Item[] = [
 		found:false,
 		ingame: true,
 		itemvalue:100,
-		currentvalue:100
+		currentvalue:100,
+		beacon:{
+			uuid:'2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6',
+			major:2,
+			minor:0
+		}
 	},
 	{ 	id: 3, 
 		name: 'Hot dog', 
@@ -24,7 +33,12 @@ export var ITEMS: Item[] = [
 		found:false,
 		ingame: true,
 		itemvalue:100,
-		currentvalue:100
+		currentvalue:100,
+		beacon:{
+			uuid:'2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6',
+			major:3,
+			minor:0
+		}
 	},
 	{ 	id: 4, 
 		name: 'Watermelon', 
@@ -32,6 +46,11 @@ export var ITEMS: Item[] = [
 		found:false,
 		ingame: true,
 		itemvalue:100,
-		currentvalue:100
+		currentvalue:100,
+		beacon:{
+			uuid:'2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6',
+			major:4,
+			minor:0
+		}
 	}
 ];
