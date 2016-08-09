@@ -32,19 +32,23 @@ export class BeaconService {
         delegate.didRangeBeaconsInRegion()
             .subscribe(
                 data => {
-                    // Sample Results
-                    // No Beacons:                   {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didDetermineStateForRegion","state":"CLRegionStateInside"}
-                    // Beacon On:                    {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":-61,"major":4,"proximity":"ProximityNear","accuracy":0.6,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
-                    // Beacon On - Not Transmitting: {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":0,"major":4,"proximity":"ProximityUnknown","accuracy":-1,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
-                    // Multiple Beacons:             {"region":{"typeName":"BeaconRegion","uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7","identifier":"deskBeacon"},"eventType":"didRangeBeaconsInRegion","beacons":[{"minor":0,"rssi":-53,"major":5,"proximity":"ProximityNear","accuracy":0.49,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"},{"minor":0,"rssi":-77,"major":4,"proximity":"ProximityFar","accuracy":2.02,"uuid":"37D34481-3585-45DA-BE7B-381DDD9AE0C7"}]}
-
-                    //if beacon has been found, check to see if it matches the beacon we're hunting for
+                	console.log('didRangeBeaconsInRegion');
+                	console.log(JSON.stringify(data));
+                    //if beacon has been found, check for proximity matches
                     if(data.beacons && data.beacons.length > 0){
                         this.matchBeacon(data.beacons);
                     }
                 },
                 error => console.error
             );
+
+        let beaconRegion = IBeacon.BeaconRegion('SL','2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6');
+
+		IBeacon.startRangingBeaconsInRegion(beaconRegion)
+		  .then(
+		    () => console.log('Native layer recieved the request to monitoring'),
+		    error => console.error('Native layer failed to begin monitoring: ', error)
+		  );
     }
 
     updateFoundBeacons(beacon:Beacon) {
@@ -63,14 +67,12 @@ export class BeaconService {
 
     testProximity(beaconData) {
         //code must run in zone for realtime updates
-        this.zone.run(() => {
-            if (beaconData.accuracy !== -1) {
-                if (beaconData.proximity === "ProximityImmediate") {
-                    // BEACON IS 'FOUND'
-                    // update found beacon array
-                    this.updateFoundBeacons({uuid:beaconData.uuid, major:beaconData.major, minor:beaconData.minor});
-                }
+        if (beaconData.accuracy !== -1) {
+            if (beaconData.proximity === "ProximityImmediate") {
+                // BEACON IS 'FOUND'
+                // update found beacon array
+                this.updateFoundBeacons({uuid:beaconData.uuid, major:beaconData.major, minor:beaconData.minor});
             }
-        });
+        }
     }
 }
